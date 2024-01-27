@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: khaldoun-bot-deployment
+  namespace: khaldounbot-ns
+  labels:
+    microservice: khaldoun-bot
+    project: khaldounbot-project
+    release: v1.0
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      microservice: khaldoun-bot
+  template:
+    metadata:
+      labels:
+        microservice: khaldoun-bot
+        project: khaldounbot-project
+        release: v1.0
+    spec:
+      containers:
+      - name: khaldoun-bot-docker-container
+        image: khaldounbot_image:tag
+        ports:
+        - containerPort: 8443
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi
