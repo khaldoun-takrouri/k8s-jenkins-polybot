@@ -5,7 +5,6 @@ metadata:
   namespace: khaldounbot-ns
   labels:
     microservice: khaldoun-bot
-    project: khaldounbot-project
     release: v1.0
 spec:
   replicas: 1
