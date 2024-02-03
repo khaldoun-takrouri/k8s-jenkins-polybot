@@ -1,7 +1,7 @@
  pipeline {
     agent any
     environment {
-        ECR_REGISTRY = "933060838752.dkr.ecr.eu-west-2.amazonaws.com"
+        ECR_REGISTRY = "933060838752.dkr.ecr.eu-west-1.amazonaws.com"
         TIMESTAMP = new Date().format('yyyyMMdd_HHmmss')
         IMAGE_TAG = "${env.BUILD_NUMBER}_${TIMESTAMP}"
         ECR_REGION = "eu-west-1"
