@@ -3,7 +3,7 @@
     environment {
         ECR_REGISTRY = "933060838752.dkr.ecr.eu-west-1.amazonaws.com"
         TIMESTAMP = new Date().format('yyyyMMdd_HHmmss')
-        IMAGE_TAG = "${env.BUILD_NUMBER}_${TIMESTAMP}"
+        IMAGE_TAG = "${env.BUILD_NUMBER}"
         ECR_REGION = "eu-west-1"
         AWS_CREDENTIALS_ID = 'AWS credentials'
         KUBE_CONFIG_CRED = 'KUBE_CONFIG_CRED'
