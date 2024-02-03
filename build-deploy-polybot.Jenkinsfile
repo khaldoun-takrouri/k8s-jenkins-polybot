@@ -25,7 +25,7 @@
                 script {
                     echo "IMAGE_TAG: ${IMAGE_TAG}"
                     sh 'docker build -t khaldoun-polybot .'
-                    sh 'docker tag ${ECR_REGISTRY}/khaldoun-polybot:${IMAGE_TAG}'
+                    sh 'docker tag khaldoun-polybot ${ECR_REGISTRY}/khaldoun-polybot:${IMAGE_TAG}'
                     sh 'docker push ${ECR_REGISTRY}/khaldoun-polybot:${IMAGE_TAG}'
 //
                 }
