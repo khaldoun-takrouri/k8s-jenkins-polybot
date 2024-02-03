@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: khaldoun-masad-deployment
-  namespace: khaldoun-masad-ns
+  namespace: khaldoun-masad
   labels:
     app: khaldoun-masad-app
     env: dev
@@ -35,7 +35,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: khaldoun-masad-ns
+  namespace: khaldoun-masad
   name: khaldoun-masad-service
   labels:
     env: dev
@@ -52,7 +52,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: khaldoun-masad-ingress
-  namespace: khaldoun-masad-ns
+  namespace: khaldoun-masad
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
