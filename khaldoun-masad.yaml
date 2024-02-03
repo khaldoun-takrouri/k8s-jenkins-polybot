@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: khaldoun-masad-deployment
+  namespace: khaldoun-masad-ns
+  labels:
+    app: khaldoun-masad-app
+    env: dev
+    release: v1.0
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: khaldoun-masad-app
+  template:
+    metadata:
+      labels:
+        app: khaldoun-masad-app
+        env: dev
+        release: v1.0
+    spec:
+      containers:
+      - name: khaldoun-masad-docker-container
+        image: khaldoun-masad_img:tag
+        ports:
+        - containerPort: 8443
+        resources:
+          limits:
+            cpu: 300m
+            memory: 300Mi
+          requests:
+            cpu: 300m
+            memory: 300Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: khaldoun-masad-ns
+  name: khaldoun-masad-service
+  labels:
+    env: dev
+    release: v1.0
+spec:
+  selector:
+    app: khaldoun-masad-app
+  ports:
+    - protocol: TCP
+      port: 8443
+      targetPort: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: khaldoun-masad-ingress
+  namespace: khaldoun-masad-ns
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  labels:
+    env: dev
+    release: v1.0
+spec:
+  tls:
+  - hosts:
+    - khaldoun.atech-bot.click
+    secretName: khaldoun-masad-secret
+  rules:
+  - host: khaldoun.atech-bot.click
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: khaldoun-masad-service
+            port:
+              number: 8443
+  ingressClassName: nginx
