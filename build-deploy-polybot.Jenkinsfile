@@ -25,11 +25,9 @@
                 script {
                     echo "IMAGE_TAG: ${IMAGE_TAG}"
                     sh 'docker build -t khaldoun-polybot .'
-
-                    sh 'docker tag khaldoun-polybot:latest 933060838752.dkr.ecr.eu-west-1.amazonaws.com/khaldoun-polybot:latest'
-                    sh 'docker push 933060838752.dkr.ecr.eu-west-1.amazonaws.com/khaldoun-polybot:latest'
-//                     dockerImage = docker.build("${ECR_REGISTRY}/khaldoun-polybot:${IMAGE_TAG}") // , "--no-cache .")
-//                     dockerImage.push()
+                    sh 'docker tag ${ECR_REGISTRY}/khaldoun-polybot:${IMAGE_TAG}'
+                    sh 'docker push ${ECR_REGISTRY}/khaldoun-polybot:${IMAGE_TAG}'
+//
                 }
             }
         }
