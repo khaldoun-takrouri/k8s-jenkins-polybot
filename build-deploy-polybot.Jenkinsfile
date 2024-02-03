@@ -37,6 +37,7 @@
                         sh 'aws eks update-kubeconfig --region ${CLUSTER_REGION} --name ${CLUSTER_NAME}'
                         withCredentials([file(credentialsId: 'KUBE_CONFIG_CRED', variable: 'KUBECONFIG')]) {
                             sh "sed -i 's|image: .*|image: ${ECR_REGISTRY}/khaldoun-polybot:${IMAGE_TAG}|' khaldoun-masad.yaml"
+                            sh 'cat khaldoun-masad.yaml'
                             sh 'kubectl apply -f khaldoun-masad.yaml' //--validate=false'
                         }
                     }
