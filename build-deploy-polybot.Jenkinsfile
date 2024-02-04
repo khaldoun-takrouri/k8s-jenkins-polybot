@@ -2,7 +2,6 @@
     agent any
     environment {
         ECR_REGISTRY = "933060838752.dkr.ecr.eu-west-1.amazonaws.com"
-        TIMESTAMP = new Date().format('yyyyMMdd_HHmmss')
         IMAGE_TAG = "${env.BUILD_NUMBER}"
         ECR_REGION = "eu-west-1"
         AWS_CREDENTIALS_ID = 'AWS credentials'
@@ -37,7 +36,6 @@
                         sh 'aws eks update-kubeconfig --region ${CLUSTER_REGION} --name ${CLUSTER_NAME}'
                         withCredentials([file(credentialsId: 'KUBE_CONFIG_CRED', variable: 'KUBECONFIG')]) {
                             sh "sed -i 's|image: .*|image: ${ECR_REGISTRY}/khaldoun-polybot:${IMAGE_TAG}|' khaldoun-masad.yaml"
-                            sh 'cat khaldoun-masad.yaml'
                             sh 'kubectl apply -f khaldoun-masad.yaml' //--validate=false'
                         }
                     }
@@ -47,7 +45,7 @@
     }
     post {
         always {
-            sh 'docker rmi $(docker images -q) -f || true'
+            sh 'docker rmi $(docker images -q) -f'
         }
     }
 }
